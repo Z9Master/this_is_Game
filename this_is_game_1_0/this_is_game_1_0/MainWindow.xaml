@@ -5,8 +5,482 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:this_is_game_1_0"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="This is game" Height="450" Width="875"
+        AllowsTransparency="True"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="#00000000"
+        FontFamily="{DynamicResource MaterialDesignFont}" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"></ColumnDefinition>
+            <ColumnDefinition Width="25"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="#FF3949AB">
+
+            <Grid Margin="1,1,1,1" >
+                <StackPanel>
+                    <Rectangle Width="500" Height="25" VerticalAlignment="Top" Fill="#FF2F3F6A" PreviewMouseDown="control_panel_mouse_down"></Rectangle>
+                    <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+                        materialDesign:ColorZoneAssist.Mode="PrimaryMid"
+                        Height="424"
+                        >
+                        <TabItem    Header="{materialDesign:PackIcon Kind=AvTimer , Size=24}"
+                            Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                            Width="50" Height="50" Padding="0" Cursor="Hand"
+                            >
+                            <Canvas>
+                                <TextBlock Canvas.Left="45" Canvas.Top="10" Width="350" HorizontalAlignment="Center" TextAlignment="Center" Cursor="Arrow">
+                                    Total work time: 60 minutes
+                                </TextBlock>
+                                <materialDesign:Card
+                                    Background="#FF6687DE"
+                                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                    Width="350" Height="150"
+                                    Padding="8"
+                                    UniformCornerRadius="6" Canvas.Left="45" Canvas.Top="33"
+                                    Cursor="Arrow"
+                                    >
+                                    <TextBlock
+                                        x:Name="tb_timer_count"
+                                        Margin="0,10,0,0"
+                                        VerticalAlignment="Top"
+                                        TextWrapping="Wrap"
+                                        Text="12:34"
+                                        FontSize="70" FontFamily="Century Gothic" FontWeight="Bold" TextAlignment="Center"
+                                        Height="80"
+                                        Cursor="Arrow"
+                                        />
+                                </materialDesign:Card>
+                                <ProgressBar
+                                    Value="25"
+                                    Height="10" Width="150" Canvas.Left="405" Canvas.Top="33" 
+                                    Orientation="Vertical"
+                                    Cursor="Arrow"
+                                    />
+                                <ProgressBar
+                                    x:Name="pb_left"
+                                    Value="25"
+                                    Height="10" Width="150" Canvas.Left="25" Canvas.Top="33" 
+                                    Orientation="Vertical"
+                                    Cursor="Arrow"
+                                    />
+                                <Button
+                                    x:Name="btn_start"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="100"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Content="START" Background="#FFE8E8E8" Canvas.Left="105" Canvas.Top="138" Foreground="#FF6687DE" BorderBrush="#FFE8E8E8" Click="btn_start_click" 
+                                    />
+                                <Button
+                                    x:Name="btn_stop"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="100"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Content="STOP" Background="#FFE8E8E8" Canvas.Left="235" Canvas.Top="138" Foreground="#FF6687DE" BorderBrush="#FFE8E8E8" Click="btn_stop_click" 
+                                    />
+                                <Label Canvas.Left="65" Canvas.Top="197" Cursor="Arrow">
+                                    Long pomodoro
+                                </Label>
+                                <ToggleButton
+                                    x:Name="cb_long_pomodoro"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                    ToolTip="Default ToggleButton Style" 
+                                    Canvas.Left="25" Canvas.Top="200" 
+                                    Checked="ev_c_cb_long_pomodoro" Unchecked="ev_u_cb_long_pomodoro"
+                                    />
+
+                                <Label Canvas.Left="65" Canvas.Top="222" Cursor="Arrow">
+                                    Finished plan for today
+                                </Label>
+                                <ToggleButton
+                                    x:Name="cb_finished_plan"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                    ToolTip="Default ToggleButton Style" 
+                                    Canvas.Left="25" Canvas.Top="225"
+                                    Checked="ev_c_cb_finished_plan" Unchecked="ev_u_cb_finished_plan"
+                                    />
+
+                                <Label Canvas.Left="65" Canvas.Top="247" Cursor="Arrow">
+                                    Block during pomodoro/idle
+                                </Label>
+                                <ToggleButton
+                                    x:Name="cb_block_during_pomodoro"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                    ToolTip="Default ToggleButton Style" 
+                                    Canvas.Left="25" Canvas.Top="250"
+                                    Checked="ev_c_cb_block_during_pomodoro" Unchecked="ev_u_cb_block_during_pomodoro"
+                                    />
+
+                                <Label Canvas.Left="20" Canvas.Top="275" Cursor="Arrow">
+                                    I need to pause blocking for some reason
+                                </Label>
+                                <Slider
+                                    Value="30"
+                                    Minimum="1"
+                                    Maximum="120"
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                    TickFrequency="1"
+                                    Canvas.Left="25" Canvas.Top="300"
+                                    Width="270"
+                                    />
+                                <Button
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="100" Height="25"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Content="PAUSE" Canvas.Right="30" Canvas.Top="295" />
+
+                                <Button
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="MaterialDesignFloatingActionMiniButton" Canvas.Left="25" Canvas.Top="375" Height="25" Width="25"
+                                    Cursor="Arrow">
+                                    <materialDesign:PackIcon
+                                        Kind="DiamondStone"
+                                        Height="15"
+                                        Width="15" 
+                                        Cursor="Arrow"
+                                        />
+                                </Button>
+                                <Label Canvas.Left="53" Canvas.Top="375" FontSize="15" x:Name="lb_diamonds" Cursor="Arrow">
+                                    50
+                                </Label>
+
+                                <Label Canvas.Left="100" Canvas.Top="375" FontSize="15" Cursor="Arrow">
+                                    Pause blocking:
+                                </Label>
+                                <ProgressBar
+                                    Canvas.Left="215" Canvas.Top="383"
+                                    Width="203"
+                                    Value="25"
+                                    Height="10" Foreground="#7F303F9F" Background="#7F9FA8DA" BorderBrush="#7F9FA8DA" 
+                                    Cursor="Arrow"
+                                    />
+                            </Canvas>
+                        </TabItem>
+                        <TabItem    Header="{materialDesign:PackIcon Kind=ApplicationCog , Size=24}"
+                            Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                            Width="50" Height="50" Padding="0" Cursor="Hand"
+                            >
+                            <Canvas>
+                                <Label Canvas.Top="7" Canvas.Left="10" Cursor="Arrow">
+                                    Websites to block
+                                </Label>
+                                <TextBox
+                                    x:Name="tb_web_block"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    VerticalAlignment="Top"
+                                    Width="410" Height="120" 
+                                    Canvas.Top="31" Canvas.Left="15"
+                                    AcceptsReturn="True"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto"
+                                    materialDesign:HintAssist.Hint="Write websites here and separate by enter" />
+
+                                <Label Canvas.Top="155" Canvas.Left="10" Cursor="Arrow">
+                                    Applications to block
+                                </Label>
+                                <TextBox
+                                    x:Name="tb_app_block"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    VerticalAlignment="Top"
+                                    Width="410" Height="120" 
+                                    Canvas.Top="179" Canvas.Left="15"
+                                    AcceptsReturn="True"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto"
+                                    materialDesign:HintAssist.Hint="Write applications here and separate by enter" />
+
+                                <Label Canvas.Left="65" Canvas.Top="305" Cursor="Arrow">
+                                    Kill applications 30 seconds after warning
+                                </Label>
+                                <ToggleButton
+                                    x:Name="cb_kill_application_after_30"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                    ToolTip="Default ToggleButton Style" 
+                                    Canvas.Left="25" Canvas.Top="308"
+                                    Checked="ev_c_cb_kill_app_after_30" Unchecked="ev_u_cb_kill_app_after_30"
+                                    />
+                                <Label Canvas.Left="65" Canvas.Top="330" Cursor="Arrow">
+                                    Turn off web block after exit
+                                </Label>
+                                <ToggleButton
+                                    x:Name="cb_turn_off_weblock_after_exit"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                    ToolTip="Default ToggleButton Style" 
+                                    Canvas.Left="25" Canvas.Top="333"
+                                    Checked="ev_c_cb_turn_off_after_exit" Unchecked="ev_u_cb_turn_off_after_exit"
+                                    />
+
+                                <Button
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="100" Height="25"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Content="SAVE" Canvas.Right="30" Canvas.Top="380"
+                                    Click="btn_save_web_app_data"/>
+                            </Canvas>
+                        </TabItem>
+                        <TabItem    Header="{materialDesign:PackIcon Kind=Cog, Size=24}"
+                            Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                            Width="50" Height="50" Padding="0" Cursor="Hand">
+                            <Canvas>
+                                <TextBox
+                                    materialDesign:HintAssist.Hint="Web block data location"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    VerticalAlignment="Center" Width="300" IsReadOnly="True" Text="Web block data location" 
+                                    Canvas.Top="7" Canvas.Left="10"
+                                    FontSize="12"
+                                    Cursor="Arrow"
+                                    x:Name="tb_web_data_path"
+                                    />
+                                <Button
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="100" Height="25"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Content="Browse" Canvas.Left="330" Canvas.Top="15" Click="btn_browse_web_data"/>
+
+                                <TextBox
+                                    materialDesign:HintAssist.Hint="App track data location"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    VerticalAlignment="Center" Width="300" IsReadOnly="True" Text="App track data location" 
+                                    Canvas.Top="50" Canvas.Left="10"
+                                    FontSize="12"
+                                    Cursor="Arrow"
+                                    x:Name="tb_app_data_path"
+                                    />
+                                <Button
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="100" Height="25"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Content="Browse" Canvas.Left="330" Canvas.Top="58"  Click="btn_browse_app_data"/>
+
+                                <TextBox
+                                    materialDesign:HintAssist.Hint="Application data location"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    VerticalAlignment="Center" Width="300" IsReadOnly="True" Text="Application data location" 
+                                    Canvas.Top="93" Canvas.Left="10"
+                                    FontSize="12"
+                                    x:Name="tb_user_data_path"
+                                    Cursor="Arrow"
+                                    />
+                                <Button
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="100" Height="25"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Content="Browse" Canvas.Left="330" Canvas.Top="101" Click="btn_browse_user_data" />
+
+                                <Canvas Width="445" Height="50" Canvas.Top="135">
+                                    <Label Canvas.Left="7" Canvas.Top="0" FontSize="12" Cursor="Arrow">
+                                        Long Break interval
+                                    </Label>
+                                    <Slider
+                                        x:Name="sl_long_Break_interval"
+                                        Value="4"
+                                        Minimum="2"
+                                        Maximum="10"
+                                        Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                        TickFrequency="1"
+                                        Width="350" Canvas.Left="10" Canvas.Top="20" PreviewMouseUp="ev_sl_break_interval"
+                                    />
+                                    <TextBox
+                                        x:Name="tb_long_Break_interval"
+                                        Text="4"
+                                        Width="25"
+                                        VerticalAlignment="Bottom" Canvas.Left="380" Canvas.Top="17" TextAlignment="Center" 
+                                        IsReadOnly="True"
+                                        Cursor="Arrow"
+                                        />
+                                    
+                                </Canvas>
+                                <Canvas Width="445" Height="50" Canvas.Top="185">
+                                    <Label Canvas.Left="7" Canvas.Top="0" FontSize="12" Cursor="Arrow">
+                                        Pomodoro time
+                                    </Label>
+                                    <Slider
+                                        x:Name="sl_pomodoro_time"
+                                        Value="25"
+                                        Minimum="10"
+                                        Maximum="60"
+                                        Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                        TickFrequency="1"
+                                        Width="350" Canvas.Left="10" Canvas.Top="20" PreviewMouseUp="ev_sl_pomodoro_time"
+                                    />
+                                    <TextBox
+                                        x:Name="tb_pomodoro_time"
+                                        Text="25"
+                                        Width="25"
+                                        VerticalAlignment="Bottom" Canvas.Left="380" Canvas.Top="17" TextAlignment="Center"
+                                        IsReadOnly="True"
+                                        Cursor="Arrow"
+                                        />
+                                </Canvas>
+                                <Canvas Width="445" Height="50" Canvas.Top="235">
+                                    <Label Canvas.Left="7" Canvas.Top="0" FontSize="12" Cursor="Arrow">
+                                        Pomodoro large time
+                                    </Label>
+                                    <Slider
+                                        x:Name="sl_pomodoro_large_time"
+                                        Value="50"
+                                        Minimum="10"
+                                        Maximum="120"
+                                        Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                        TickFrequency="1"
+                                        Width="350" Canvas.Left="10" Canvas.Top="20" PreviewMouseUp="ev_sl_pomodoro_large_time"
+                                    />
+                                    <TextBox
+                                        x:Name="tb_pomodoro_large_time"
+                                        Text="50"
+                                        Width="25"
+                                        VerticalAlignment="Bottom" Canvas.Left="380" Canvas.Top="17" TextAlignment="Center" 
+                                        IsReadOnly="True"
+                                        Cursor="Arrow"
+                                        />
+                                </Canvas>
+                                <Canvas Width="445" Height="50" Canvas.Top="285">
+                                    <Label Canvas.Left="7" Canvas.Top="0" FontSize="12" Cursor="Arrow">
+                                        Short break time
+                                    </Label>
+                                    <Slider
+                                        x:Name="sl_short_break_time"
+                                        Value="5"
+                                        Minimum="1"
+                                        Maximum="20"
+                                        Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                        TickFrequency="1"
+                                        Width="350" Canvas.Left="10" Canvas.Top="20" PreviewMouseUp="ev_sl_short_break"
+                                    />
+                                    <TextBox
+                                        x:Name="tb_short_break_time"
+                                        Text="5"
+                                        Width="25"
+                                        VerticalAlignment="Bottom" Canvas.Left="380" Canvas.Top="17" TextAlignment="Center" 
+                                        IsReadOnly="True"
+                                        Cursor="Arrow"
+                                        />
+                                </Canvas>
+                                <Canvas Width="445" Height="50" Canvas.Top="335">
+                                    <Label Canvas.Left="7" Canvas.Top="0" FontSize="12" Cursor="Arrow">
+                                        Long break time
+                                    </Label>
+                                    <Slider
+                                        x:Name="sl_large_break_time"
+                                        Value="15"
+                                        Minimum="5"
+                                        Maximum="30"
+                                        Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                        TickFrequency="1"
+                                        Width="350" Canvas.Left="10" Canvas.Top="20" PreviewMouseUp="ev_sl_long_break"
+                                    />
+                                    <TextBox
+                                        x:Name="tb_large_break_time"
+                                        Text="15"
+                                        Width="25"
+                                        VerticalAlignment="Bottom" Canvas.Left="380" Canvas.Top="17" TextAlignment="Center" 
+                                        IsReadOnly="True"
+                                        Cursor="Arrow"
+                                        />
+                                </Canvas>
+                                <Button
+                                  Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                  Width="100"
+                                  Height="25"
+                                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                  Content="Reset all" 
+                                  Canvas.Bottom="10" Canvas.Left="330"/>
+                            </Canvas>
+                        </TabItem>
+                    </TabControl>
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Column="2" Background="#FF3949AB">
+            <Grid Margin="1,1,1,1" >
+                <StackPanel Background="#FF2F3F6A">
+                    <DockPanel Width="348">
+                        <Rectangle Width="298" Height="25" VerticalAlignment="Top" Fill="#FF2F3F6A"
+                                   PreviewMouseDown="control_panel_2_mouse_down"></Rectangle>
+                        <Button Height="25" Width="25" BorderBrush="{x:Null}" 
+                                x:Name="btn_minimize"
+                                Click="btn_minimize_click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Pictures/minimize_2.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Height="25" Width="25" BorderBrush="{x:Null}" Click="Button_Click" >
+                            <Button.Background>
+                                <ImageBrush ImageSource="Pictures/close_2.png"/>
+                            </Button.Background>
+                        </Button>
+                    </DockPanel>
+
+
+                    <materialDesign:Card
+                    Background="#FF3F51B5"
+                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                    Width="auto"
+                    Padding="8">
+                        <Canvas Height="407">
+                            <TextBlock
+                                Margin="16 10 12 8"
+                                FontSize="20"
+                                Text="Notes" />
+                            <Separator Style="{StaticResource MaterialDesignLightSeparator}" Width="320" Canvas.Top="27" Canvas.Left="9" />
+                            <TextBox
+                                Margin="16 10 12 8"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Stretch"
+                                MinWidth="280"
+                                AcceptsReturn="True"
+                                VerticalScrollBarVisibility="Auto"
+                                materialDesign:HintAssist.Hint="Write notes here"
+                                Height="350"
+                                Width="300"
+                                Canvas.Top="30"
+                                Text="Zvládneme zkoušky a uděláme Bc." 
+                                FontSize="16"
+                                />
+                            <!--
+                            <StackPanel Canvas.Top="40" Width="330">
+                                <CheckBox
+                              Margin="16 4 16 0"
+                              Style="{StaticResource MaterialDesignUserForegroundCheckBox}"
+                              Content="Finish this project pls" />
+                                <CheckBox
+                              Margin="16 4 16 0"
+                              Style="{StaticResource MaterialDesignUserForegroundCheckBox}"
+                              Content="Because that will help you a lot" />
+                            </StackPanel>
+                             -->
+
+                        </Canvas>
+
+                    </materialDesign:Card>
+                    <!--
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            Width="246"
+                            Margin="5"
+                          materialDesign:HintAssist.Hint="Floating Hint"
+                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                          VerticalAlignment="Center" />
+                        <Button
+                          Style="{StaticResource MaterialDesignRaisedButton}"
+                          Width="100"
+                          ToolTip="Resource name: MaterialDesignRaisedButton"
+                          Content="_MID" />
+                    </StackPanel> -->
+
+
+                </StackPanel>
+
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

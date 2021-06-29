@@ -8,10 +8,8 @@ using System.Windows;
 
 namespace this_is_game_1_0
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+
     }
 }

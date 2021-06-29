@@ -1,0 +1,11 @@
+pomodoro_interval:4
+pomodoro_time:25
+pomodoro_large_time:60
+short_break_time:5
+long_break_time:15
+diamonds:100
+cb_long_pomodoro:0
+cb_finished_plan:0
+cb_block_during_pomodoro:0
+cb_kill_app_after:0
+cb_turn_off_block_after_exit:0
